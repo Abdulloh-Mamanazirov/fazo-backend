@@ -1,0 +1,76 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Service {
+    id        String   @map("id")         @db.Uuid         @default(uuid())
+    title     String   @map("title")      @db.Text        
+    desc      String   @map("desc")       @db.Text        
+    image     String?  @map("image")      @db.Text         @default("https://static.vecteezy.com/system/resources/thumbnails/000/125/992/small/vector-free-shopping-icons.jpg")
+    createdAt DateTime @map("created_at") @db.Timestamp(0) @default(now())
+
+    projects Project[]
+
+    @@id([id])
+    @@map("services")
+}
+
+model Project {
+    id        String    @map("id")         @db.Uuid         @default(uuid())
+    title     String    @map("title")      @db.Text
+    desc      String    @map("desc")       @db.Text
+    image     String?   @map("image")      @db.Text
+    link      String    @map("link")       @db.Text
+    status    Int       @map("status")     @db.Integer
+    createdAt DateTime  @map("created_at") @db.Timestamp(0) @default(now())
+    service   Service   @relation(fields: [serviceId], references: [id])
+    serviceId String    @db.Uuid
+
+    @@id([id])
+    @@map("projects")
+}
+
+model Partner {
+    id        String   @map("id")         @db.Uuid         @default(uuid())
+    image     String   @map("image")      @db.Text
+    name      String   @map("name")       @db.Text
+    createdAt DateTime @map("created_at") @db.Timestamp(0) @default(now())
+
+    @@id([id])
+    @@map("partners")
+}
+
+model Links {
+    id        String   @map("id")         @db.Uuid         @default(uuid())
+    link      String   @map("link")       @db.Text
+    createdAt DateTime @map("created_at") @db.Timestamp(0) @default(now())
+
+    @@id([id])
+    @@map("links")
+}
+
+model Vacancies {
+    id        String     @map("id")         @db.Uuid         @default(uuid())
+    title     String     @map("link")       @db.VarChar(30)
+    desc      String     @map("desc")       @db.Text
+    endsAt    DateTime?  @map("ands_at")    @db.Date
+    createdAt DateTime   @map("created_at") @db.Timestamp(0) @default(now())
+
+    @@id([id])
+    @@map("vacancies")
+}
+
+model Company {
+    id    String @map("id")    @db.Uuid @default(uuid())
+    about String @map("link")  @db.Text
+    email String @map("email") @db.Text
+    phone String @map("phone") @db.VarChar(20)
+
+    @@id([id])
+    @@map("company")
+}
