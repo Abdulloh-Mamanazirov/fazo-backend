@@ -6,3 +6,7 @@ export declare interface ServicesRetrieveRequest {
 export declare interface ServiceRetrieveOneRequest {
   id: string;
 }
+
+export declare interface ServiceRetrieveProjectsRequest {
+  id: string;
+}

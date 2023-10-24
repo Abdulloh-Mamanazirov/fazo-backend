@@ -1,4 +1,4 @@
-import type { Service } from '@prisma/client';
+import type { Project, Service } from '@prisma/client';
 import path = require('path');
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,6 +26,7 @@ import {
   ServiceCreateRequestDto,
   ServiceRetrieveOneRequestDto,
   ServicesRetrieveRequestDto,
+  ServiceRetrieveProjectsRequestDto,
 } from './dtos';
 import { PAGINATION } from './constants';
 
@@ -62,6 +63,14 @@ export class ServiceController {
     query.offset = query.offset ?? PAGINATION.offset;
     query.take = query.take ?? PAGINATION.take;
     return this.#_service.servicesRetrieveAll(query);
+  }
+
+  @Get('/projects/:id')
+  @HttpCode(HttpStatus.OK)
+  async servicesRetrieveProjects(
+    @Param() param: ServiceRetrieveProjectsRequestDto,
+  ): Promise<Project[]> {
+    return this.#_service.servicesRetrieveProjects(param);
   }
 
   @Get('/:id')
