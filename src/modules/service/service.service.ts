@@ -5,6 +5,7 @@ import type {
   ServiceCreateRequest,
   ServiceDeleteRequest,
   ServiceRetrieveOneRequest,
+  ServicesRetrieveRequest,
   ServiceUpdateRequest,
 } from './interfaces';
 
@@ -15,8 +16,11 @@ export class ServiceService {
     this.#_prisma = prisma;
   }
 
-  async servicesRetrieveAll(): Promise<Service[]> {
-    let services = await this.#_prisma.service.findMany();
+  async servicesRetrieveAll(payload: ServicesRetrieveRequest): Promise<Service[]> {
+    let services = await this.#_prisma.service.findMany({
+      skip: (payload.offset - 1) * payload.take,
+      take: payload.take,
+    });
     return services;
   }
 

@@ -8,6 +8,7 @@ import {
   Put,
   Post,
   Body,
+  Query,
   Param,
   Delete,
   HttpCode,
@@ -24,7 +25,9 @@ import {
   ServiceUpdateRequestDto,
   ServiceCreateRequestDto,
   ServiceRetrieveOneRequestDto,
+  ServicesRetrieveRequestDto,
 } from './dtos';
+import { PAGINATION } from './constants';
 
 const storage = {
   storage: diskStorage({
@@ -53,14 +56,18 @@ export class ServiceController {
 
   @Get('/all')
   @HttpCode(HttpStatus.OK)
-  async servicesRetrieveAll(): Promise<Service[]> {
-    return this.#_service.servicesRetrieveAll();
+  async servicesRetrieveAll(
+    @Query() query: ServicesRetrieveRequestDto,
+  ): Promise<Service[]> {
+    query.offset = query.offset ?? PAGINATION.offset;
+    query.take = query.take ?? PAGINATION.take;
+    return this.#_service.servicesRetrieveAll(query);
   }
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   async servicesRetrieveOne(
-    @Param('id') param: ServiceRetrieveOneRequestDto,
+    @Param() param: ServiceRetrieveOneRequestDto,
   ): Promise<Service> {
     return this.#_service.servicesRetrieveOne(param);
   }

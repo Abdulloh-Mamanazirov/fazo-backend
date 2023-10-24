@@ -5,6 +5,7 @@ import type {
   ProjectCreateRequest,
   ProjectDeleteRequest,
   ProjectRetrieveOneRequest,
+  ProjectsRetrieveRequest,
   ProjectUpdateRequest,
 } from './interfaces';
 
@@ -15,8 +16,13 @@ export class ProjectService {
     this.#_prisma = prisma;
   }
 
-  async projectsRetrieveAll(): Promise<Project[]> {
-    let projects = await this.#_prisma.project.findMany();
+  async projectsRetrieveAll(
+    payload: ProjectsRetrieveRequest,
+  ): Promise<Project[]> {
+    let projects = await this.#_prisma.project.findMany({
+      skip: (payload.offset - 1) * payload.take,
+      take: payload.take,
+    });
     return projects;
   }
 
@@ -38,7 +44,7 @@ export class ProjectService {
         desc: payload.desc,
         image: payload.image,
         link: payload.link,
-        status:payload.status,
+        status: payload.status,
         serviceId: payload.serviceId,
       },
     });

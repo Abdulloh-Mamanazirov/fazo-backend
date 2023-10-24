@@ -8,6 +8,7 @@ import {
   Put,
   Post,
   Body,
+  Query,
   Param,
   Delete,
   HttpCode,
@@ -18,12 +19,14 @@ import {
 } from '@nestjs/common';
 import { TokenInterceptor } from '@interceptors';
 import { ProjectService } from './project.service';
+import { PAGINATION } from './constants';
 import {
   ProjectUpdateIdDto,
   ProjectDeleteRequestDto,
   ProjectUpdateRequestDto,
   ProjectCreateRequestDto,
   ProjectRetrieveOneRequestDto,
+  ProjectsRetrieveRequestDto,
 } from './dtos';
 
 const storage = {
@@ -53,8 +56,12 @@ export class ProjectController {
 
   @Get('/all')
   @HttpCode(HttpStatus.OK)
-  async projectsRetrieveAll(): Promise<Project[]> {
-    return this.#_service.projectsRetrieveAll();
+  async projectsRetrieveAll(
+    @Query() query: ProjectsRetrieveRequestDto,
+  ): Promise<Project[]> {
+    query.offset = query.offset ?? PAGINATION.offset;
+    query.take = query.take ?? PAGINATION.take;
+    return this.#_service.projectsRetrieveAll(query);
   }
 
   @Get('/:id')
