@@ -43,7 +43,6 @@ const storage = {
   path: '/partners',
   version: '1',
 })
-@UseInterceptors(TokenInterceptor)
 export class PartnerController {
   readonly #_service: PartnerService;
   constructor(service: PartnerService) {
@@ -60,6 +59,7 @@ export class PartnerController {
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async partnerCreate(
     @Body() body: PartnerCreateRequestDto,
@@ -73,6 +73,7 @@ export class PartnerController {
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async partnerUpdate(
     @Param() param: PartnerUpdateRequestIdDto,
@@ -85,6 +86,7 @@ export class PartnerController {
 
   @Delete('/delete/:id')
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
   async partnerDelete(@Param() param: PartnerDeleteRequestDto): Promise<null> {
     return this.#_service.partnerDelete(param);
   }
