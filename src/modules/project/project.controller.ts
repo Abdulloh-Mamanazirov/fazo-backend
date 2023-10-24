@@ -47,7 +47,6 @@ const storage = {
   path: '/projects',
   version: '1',
 })
-@UseInterceptors(TokenInterceptor)
 export class ProjectController {
   readonly #_service: ProjectService;
   constructor(service: ProjectService) {
@@ -76,6 +75,7 @@ export class ProjectController {
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async projectCreate(
     @Body() body: ProjectCreateRequestDto,
@@ -89,6 +89,7 @@ export class ProjectController {
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async projectUpdate(
     @Param() param: ProjectUpdateIdDto,
@@ -101,6 +102,7 @@ export class ProjectController {
 
   @Delete('/delete/:id')
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
   async projectDelete(@Param() param: ProjectDeleteRequestDto): Promise<null> {
     return this.#_service.projectDelete(param);
   }

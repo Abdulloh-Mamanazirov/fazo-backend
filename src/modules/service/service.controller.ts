@@ -48,7 +48,6 @@ const storage = {
   path: '/services',
   version: '1',
 })
-@UseInterceptors(TokenInterceptor)
 export class ServiceController {
   readonly #_service: ServiceService;
   constructor(service: ServiceService) {
@@ -85,6 +84,7 @@ export class ServiceController {
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async serviceCreate(
     @Body() body: ServiceCreateRequestDto,
@@ -98,6 +98,7 @@ export class ServiceController {
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'image', maxCount: 1 }], storage),
+    TokenInterceptor,
   )
   async serviceUpdate(
     @Param() param: ServiceUpdateIdDto,
@@ -110,6 +111,7 @@ export class ServiceController {
 
   @Delete('/delete/:id')
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
   async serviceDelete(@Param() param: ServiceDeleteRequestDto): Promise<null> {
     return this.#_service.serviceDelete(param);
   }
