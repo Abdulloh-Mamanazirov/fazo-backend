@@ -67,7 +67,7 @@ export class ProjectController {
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   async projectRetrieveOne(
-    @Param('id') param: ProjectRetrieveOneRequestDto,
+    @Param() param: ProjectRetrieveOneRequestDto,
   ): Promise<Project> {
     return this.#_service.projectRetrieveOne(param);
   }
