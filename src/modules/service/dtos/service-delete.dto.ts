@@ -5,5 +5,4 @@ export class ServiceDeleteRequestDto implements ServiceDeleteRequest {
   @IsUUID('4')
   @IsNotEmpty()
   id: string;
-  z;
 }
