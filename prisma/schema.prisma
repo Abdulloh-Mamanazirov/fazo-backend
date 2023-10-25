@@ -46,11 +46,13 @@ model Partner {
 }
 
 model Links {
-    id        String   @map("id")         @db.Uuid         @default(uuid())
-    link      String   @map("link")       @db.Text
-    createdAt DateTime @map("created_at") @db.Timestamp(0) @default(now())
+    facebook  String @map("facebook")  @db.Text
+    instagram String @map("instagram") @db.Text
+    telegram  String @map("telegram")  @db.Text
+    linkedIn  String @map("linkedIn")  @db.Text
+    github    String @map("github")    @db.Text
 
-    @@id([id])
+    @@id([facebook, instagram, telegram, linkedIn, github])
     @@map("links")
 }
 
