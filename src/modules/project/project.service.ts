@@ -22,6 +22,9 @@ export class ProjectService {
     let projects = await this.#_prisma.project.findMany({
       skip: (payload.offset - 1) * payload.take,
       take: payload.take,
+      orderBy:{
+        status:"asc"
+      }
     });
     return projects;
   }
