@@ -45,6 +45,8 @@ export class CompanyController {
   }
 
   @Delete('/delete')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
   async companyDelete(): Promise<null> {
     return this.#_service.companyDelete();
   }

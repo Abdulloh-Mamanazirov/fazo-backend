@@ -6,6 +6,10 @@ export class CompanyCreateRequestDto implements CompanyCreateRequest {
   @IsNotEmpty()
   about: string;
 
+  @IsString()
+  @IsNotEmpty()
+  address: string;
+
   @IsEmail()
   @IsNotEmpty()
   email: string;

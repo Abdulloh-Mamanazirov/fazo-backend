@@ -19,6 +19,7 @@ export class CompanyService {
     await this.#_prisma.company.create({
       data: {
         about: payload.about,
+        address: payload.address,
         email: payload.email,
         phone: payload.phone,
       },
@@ -31,6 +32,7 @@ export class CompanyService {
     await this.#_prisma.company.updateMany({
       data: {
         about: payload.about,
+        address: payload.address,
         email: payload.email,
         phone: payload.phone,
       },

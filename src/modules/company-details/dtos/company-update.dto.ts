@@ -6,6 +6,10 @@ export class CompanyUpdateRequestDto implements CompanyUpdateRequest {
   @IsOptional()
   about?: string;
 
+  @IsString()
+  @IsOptional()
+  address?: string;
+
   @IsEmail()
   @IsOptional()
   email?: string;

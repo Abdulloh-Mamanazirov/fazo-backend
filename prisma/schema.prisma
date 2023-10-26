@@ -68,10 +68,11 @@ model Vacancies {
 }
 
 model Company {
-    id    String @map("id")    @db.Uuid @default(uuid())
-    about String @map("link")  @db.Text
-    email String @map("email") @db.Text
-    phone String @map("phone") @db.VarChar(20)
+    id      String @map("id")      @db.Uuid @default(uuid())
+    about   String @map("link")    @db.Text
+    address String @map("address") @db.Text
+    email   String @map("email")   @db.Text
+    phone   String @map("phone")   @db.VarChar(20)
 
     @@id([id])
     @@map("company")
