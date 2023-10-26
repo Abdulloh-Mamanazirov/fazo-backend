@@ -21,7 +21,7 @@ export class ServicesRetrieveRequestDto implements ServicesRetrieveRequest {
   @IsNumber()
   @IsOptional()
   @Type(() => Number)
-  offset?: number;
+  page?: number;
 }
 
 export class ServiceRetrieveProjectsRequestDto

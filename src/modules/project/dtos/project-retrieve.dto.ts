@@ -20,5 +20,5 @@ export class ProjectsRetrieveRequestDto implements ProjectsRetrieveRequest {
   @IsNumber()
   @IsOptional()
   @Type(() => Number)
-  offset?: number;
+  page?: number;
 }

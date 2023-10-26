@@ -59,7 +59,7 @@ export class ServiceController {
   async servicesRetrieveAll(
     @Query() query: ServicesRetrieveRequestDto,
   ): Promise<Service[]> {
-    query.offset = query.offset ?? PAGINATION.offset;
+    query.page = query.page ?? PAGINATION.offset;
     query.take = query.take ?? PAGINATION.take;
     return this.#_service.servicesRetrieveAll(query);
   }

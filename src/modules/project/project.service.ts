@@ -20,7 +20,7 @@ export class ProjectService {
     payload: ProjectsRetrieveRequest,
   ): Promise<Project[]> {
     let projects = await this.#_prisma.project.findMany({
-      skip: (payload.offset - 1) * payload.take,
+      skip: (payload.page - 1) * payload.take,
       take: payload.take,
       orderBy:{
         status:"asc"

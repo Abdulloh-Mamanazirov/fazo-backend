@@ -58,7 +58,7 @@ export class ProjectController {
   async projectsRetrieveAll(
     @Query() query: ProjectsRetrieveRequestDto,
   ): Promise<Project[]> {
-    query.offset = query.offset ?? PAGINATION.offset;
+    query.page = query.page ?? PAGINATION.offset;
     query.take = query.take ?? PAGINATION.take;
     return this.#_service.projectsRetrieveAll(query);
   }

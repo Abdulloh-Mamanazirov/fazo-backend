@@ -21,7 +21,7 @@ export class ServiceService {
     payload: ServicesRetrieveRequest,
   ): Promise<Service[]> {
     let services = await this.#_prisma.service.findMany({
-      skip: (payload.offset - 1) * payload.take,
+      skip: (payload.page - 1) * payload.take,
       take: payload.take,
     });
     return services;

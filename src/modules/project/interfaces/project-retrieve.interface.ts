@@ -4,5 +4,5 @@ export declare interface ProjectRetrieveOneRequest {
 
 export declare interface ProjectsRetrieveRequest {
   take?: number;
-  offset?: number;
+  page?: number;
 }

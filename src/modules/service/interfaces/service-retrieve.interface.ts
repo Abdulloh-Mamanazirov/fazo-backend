@@ -1,6 +1,6 @@
 export declare interface ServicesRetrieveRequest {
   take?: number;
-  offset?: number;
+  page?: number;
 }
 
 export declare interface ServiceRetrieveOneRequest {
