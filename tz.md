@@ -21,7 +21,7 @@
     linkedIn
     github
 
-company details:
+✓ company details:
     about
     address
     email

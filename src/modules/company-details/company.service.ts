@@ -1,7 +1,11 @@
 import type { Company } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma';
-import type { CompanyCreateRequest, CompanyUpdateRequest } from './interfaces';
+import type {
+  CompanyCreateRequest,
+  CompanyUpdateRequest,
+  LengthRetrieveResponse,
+} from './interfaces';
 
 @Injectable()
 export class CompanyService {
@@ -13,6 +17,15 @@ export class CompanyService {
   async companyRetrieveAll(): Promise<Company[]> {
     let company = await this.#_prisma.company.findMany();
     return company;
+  }
+
+  async companyRetrieveLength(): Promise<LengthRetrieveResponse> {
+    let services_length = await this.#_prisma.service.count();
+    let projects_length = await this.#_prisma.project.count();
+    return {
+      services: services_length,
+      projects: projects_length,
+    };
   }
 
   async companyCreate(payload: CompanyCreateRequest): Promise<null> {

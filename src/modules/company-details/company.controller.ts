@@ -12,7 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { CompanyCreateRequestDto, CompanyUpdateRequestDto } from './dtos';
+import { CompanyCreateRequestDto, CompanyUpdateRequestDto, LengthRetrieveResponseDto } from './dtos';
 
 @Controller({
   path: '/company-details',
@@ -28,6 +28,12 @@ export class CompanyController {
   @HttpCode(HttpStatus.OK)
   async companyRetrieveAll(): Promise<Company[]> {
     return this.#_service.companyRetrieveAll();
+  }
+
+  @Get('/length')
+  @HttpCode(HttpStatus.OK)
+  async companyRetrieveLength(): Promise<LengthRetrieveResponseDto> {
+    return this.#_service.companyRetrieveLength();
   }
 
   @Post('/create')
