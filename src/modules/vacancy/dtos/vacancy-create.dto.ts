@@ -7,10 +7,10 @@ export class VacancyCreateRequestDto implements VacancyCreateRequest {
   title: string;
 
   @IsString()
-  @IsNotEmpty()
-  desc: string;
+  @IsOptional()
+  desc?: string;
 
   @IsDate()
   @IsOptional()
-  endsAt: Date;
+  endsAt?: Date;
 }

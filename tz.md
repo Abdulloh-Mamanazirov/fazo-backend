@@ -14,7 +14,7 @@
     image
     name
 
-social medias:
+✓ social medias:
     link
 
 company details:
@@ -22,7 +22,7 @@ company details:
     email
     phone
 
-vacancies:
+✓ vacancies:
     title
     desc
     endsAt

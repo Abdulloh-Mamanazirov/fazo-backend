@@ -1,6 +1,6 @@
+import type { Vacancies } from '@prisma/client';
 import { TokenInterceptor } from '@interceptors';
 import { VacancyService } from './vacancy.service';
-import type { Project, Service, Vacancies } from '@prisma/client';
 import {
   Get,
   Put,

@@ -59,7 +59,7 @@ model Links {
 model Vacancies {
     id        String     @map("id")         @db.Uuid         @default(uuid())
     title     String     @map("link")       @db.VarChar(30)
-    desc      String     @map("desc")       @db.Text
+    desc      String?     @map("desc")       @db.Text
     endsAt    DateTime?  @map("ands_at")    @db.Date
     createdAt DateTime   @map("created_at") @db.Timestamp(0) @default(now())
 
