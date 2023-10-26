@@ -17,4 +17,8 @@ export class CompanyCreateRequestDto implements CompanyCreateRequest {
   @IsPhoneNumber('UZ')
   @IsNotEmpty()
   phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  telegram: string;
 }

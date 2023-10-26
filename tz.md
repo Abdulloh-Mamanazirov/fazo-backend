@@ -15,12 +15,18 @@
     name
 
 ✓ social medias:
-    link
+    facebook
+    instagram
+    telegram
+    linkedIn
+    github
 
 company details:
     about
+    address
     email
     phone
+    telegram
 
 ✓ vacancies:
     title

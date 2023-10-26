@@ -17,4 +17,8 @@ export class CompanyUpdateRequestDto implements CompanyUpdateRequest {
   @IsPhoneNumber('UZ')
   @IsOptional()
   phone?: string;
+
+  @IsString()
+  @IsOptional()
+  telegram?: string;
 }

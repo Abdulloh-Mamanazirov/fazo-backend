@@ -3,4 +3,5 @@ export declare interface CompanyUpdateRequest {
   address?: string;
   email?: string;
   phone?: string;
+  telegram?: string;
 }

@@ -22,6 +22,7 @@ export class CompanyService {
         address: payload.address,
         email: payload.email,
         phone: payload.phone,
+        telegram: payload.telegram,
       },
     });
 
@@ -35,6 +36,7 @@ export class CompanyService {
         address: payload.address,
         email: payload.email,
         phone: payload.phone,
+        telegram: payload.telegram,
       },
     });
 
