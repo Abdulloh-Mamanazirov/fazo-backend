@@ -18,6 +18,9 @@ import {
   VacancyModule,
   VacancyController,
   VacancyService,
+  CompanyModule,
+  CompanyController,
+  CompanyService,
 } from '@modules';
 import { LinksController, LinksModule, LinksService } from 'modules/links';
 
@@ -33,6 +36,7 @@ import { LinksController, LinksModule, LinksService } from 'modules/links';
     PartnerModule,
     LinksModule,
     VacancyModule,
+    CompanyModule,
   ],
   controllers: [
     LoginController,
@@ -41,6 +45,7 @@ import { LinksController, LinksModule, LinksService } from 'modules/links';
     PartnerController,
     LinksController,
     VacancyController,
+    CompanyController,
   ],
   providers: [
     PrismaService,
@@ -50,6 +55,7 @@ import { LinksController, LinksModule, LinksService } from 'modules/links';
     PartnerService,
     LinksService,
     VacancyService,
+    CompanyService,
   ],
 })
 export class App {}
