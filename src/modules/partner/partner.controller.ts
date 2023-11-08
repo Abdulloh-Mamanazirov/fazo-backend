@@ -9,6 +9,7 @@ import {
   Post,
   Body,
   Param,
+  Query,
   Delete,
   HttpCode,
   Controller,
@@ -23,7 +24,9 @@ import {
   PartnerDeleteRequestDto,
   PartnerUpdateRequestDto,
   PartnerCreateRequestDto,
+  PartnersRetrieveRequestDto,
 } from './dtos';
+import { PAGINATION } from './constants';
 
 const storage = {
   storage: diskStorage({
@@ -51,8 +54,12 @@ export class PartnerController {
 
   @Get('/all')
   @HttpCode(HttpStatus.OK)
-  async partnersRetrieveAll(): Promise<Partner[]> {
-    return this.#_service.partnersRetrieveAll();
+  async partnersRetrieveAll(
+    @Query() query: PartnersRetrieveRequestDto,
+  ): Promise<Partner[]> {
+    query.page = query.page ?? PAGINATION.offset;
+    query.take = query.take ?? PAGINATION.take;
+    return this.#_service.partnersRetrieveAll(query);
   }
 
   @Post('/create')

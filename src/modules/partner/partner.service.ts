@@ -4,6 +4,7 @@ import { PrismaService } from '@prisma';
 import type {
   PartnerCreateRequest,
   PartnerDeleteRequest,
+  PartnersRetrieveRequest,
   PartnerUpdateRequest,
 } from './interfaces';
 
@@ -14,8 +15,11 @@ export class PartnerService {
     this.#_prisma = prisma;
   }
 
-  async partnersRetrieveAll(): Promise<Partner[]> {
-    let partners = await this.#_prisma.partner.findMany();
+  async partnersRetrieveAll(payload: PartnersRetrieveRequest): Promise<Partner[]> {
+    let partners = await this.#_prisma.partner.findMany({
+      skip: (payload.page - 1) * payload.take,
+      take: payload.take,
+    });
     return partners;
   }
 

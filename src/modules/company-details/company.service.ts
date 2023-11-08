@@ -22,9 +22,11 @@ export class CompanyService {
   async companyRetrieveLength(): Promise<LengthRetrieveResponse> {
     let services_length = await this.#_prisma.service.count();
     let projects_length = await this.#_prisma.project.count();
+    let partners_length = await this.#_prisma.partner.count();
     return {
       services: services_length,
       projects: projects_length,
+      partners: partners_length,
     };
   }
 

@@ -12,7 +12,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { CompanyCreateRequestDto, CompanyUpdateRequestDto, LengthRetrieveResponseDto } from './dtos';
+import {
+  CompanyCreateRequestDto,
+  CompanyUpdateRequestDto,
+  LengthRetrieveResponseDto,
+} from './dtos';
 
 @Controller({
   path: '/company-details',
