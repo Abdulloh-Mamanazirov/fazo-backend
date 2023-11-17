@@ -17,4 +17,9 @@ export class LengthRetrieveResponseDto implements LengthRetrieveResponse {
   @Type(() => Number)
   @IsNotEmpty()
   partners: number;
+
+  @IsNumber()
+  @Type(() => Number)
+  @IsNotEmpty()
+  vacancies: number;
 }

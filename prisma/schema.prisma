@@ -56,12 +56,18 @@ model Links {
     @@map("links")
 }
 
-model Vacancies {
+model Vacancy {
     id        String     @map("id")         @db.Uuid         @default(uuid())
     title     String     @map("link")       @db.VarChar(30)
-    desc      String?     @map("desc")       @db.Text
+    require   String     @map("require")    @db.Text
+    offer     String     @map("offer")      @db.Text
+    days      String     @map("days")       @db.Text
+    time      String     @map("time")       @db.Text
+    salary    String?    @map("salary")     @db.Text
     endsAt    DateTime?  @map("ands_at")    @db.Date
     createdAt DateTime   @map("created_at") @db.Timestamp(0) @default(now())
+
+    resumes Resume[]
 
     @@id([id])
     @@map("vacancies")
@@ -77,4 +83,17 @@ model Company {
 
     @@id([id])
     @@map("company")
+}
+
+model Resume {
+    id         String   @map("id")       @db.Uuid @default(uuid())
+    name       String   @map("name")     @db.Text
+    phone      String   @map("phone")    @db.Text
+    about      String   @map("about")    @db.Text
+    resume     String   @map("resume")   @db.Text
+    vacancy    Vacancy? @relation(fields: [vacancy_id], references: [id])
+    vacancy_id String?  @map("telegram") @db.Uuid
+
+    @@id([id])
+    @@map("resume")
 }

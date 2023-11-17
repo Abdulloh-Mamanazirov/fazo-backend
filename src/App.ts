@@ -19,13 +19,15 @@ import {
   VacancyController,
   VacancyService,
   CompanyModule,
+  LinksController,
+  LinksModule,
+  LinksService,
   CompanyController,
   CompanyService,
   ResumeModule,
   ResumeController,
   ResumeService,
 } from '@modules';
-import { LinksController, LinksModule, LinksService } from 'modules/links';
 
 @Module({
   imports: [

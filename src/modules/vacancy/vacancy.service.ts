@@ -1,4 +1,4 @@
-import type { Vacancies } from '@prisma/client';
+import type { Vacancy } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma';
 import type {
@@ -15,15 +15,15 @@ export class VacancyService {
     this.#_prisma = prisma;
   }
 
-  async vacanciesRetrieveAll(): Promise<Vacancies[]> {
-    let vacancies = await this.#_prisma.vacancies.findMany();
+  async vacanciesRetrieveAll(): Promise<Vacancy[]> {
+    let vacancies = await this.#_prisma.vacancy.findMany();
     return vacancies;
   }
 
   async vacancyRetrieveOne(
     payload: VacancyRetrieveOneRequest,
-  ): Promise<Vacancies> {
-    let vacancy = await this.#_prisma.vacancies.findUnique({
+  ): Promise<Vacancy> {
+    let vacancy = await this.#_prisma.vacancy.findUnique({
       where: {
         id: payload.id,
       },
@@ -32,10 +32,14 @@ export class VacancyService {
   }
 
   async vacancyCreate(payload: VacancyCreateRequest): Promise<null> {
-    await this.#_prisma.vacancies.create({
+    await this.#_prisma.vacancy.create({
       data: {
         title: payload.title,
-        desc: payload.desc,
+        require: payload.require,
+        offer: payload.offer,
+        days: payload.days,
+        time: payload.time,
+        salary: payload.salary,
         endsAt: payload.endsAt,
       },
     });
@@ -44,13 +48,17 @@ export class VacancyService {
   }
 
   async vacancyUpdate(payload: VacancyUpdateRequest): Promise<null> {
-    await this.#_prisma.vacancies.update({
+    await this.#_prisma.vacancy.update({
       where: {
         id: payload.id,
       },
       data: {
         title: payload.title,
-        desc: payload.desc,
+        require: payload.require,
+        offer: payload.offer,
+        days: payload.days,
+        time: payload.time,
+        salary: payload.salary,
         endsAt: payload.endsAt,
       },
     });
@@ -59,7 +67,7 @@ export class VacancyService {
   }
 
   async vacancyDelete(payload: VacancyDeleteRequest): Promise<null> {
-    await this.#_prisma.vacancies.delete({
+    await this.#_prisma.vacancy.delete({
       where: {
         id: payload.id,
       },

@@ -14,7 +14,23 @@ export class VacancyUpdateRequestDto implements Omit<VacancyUpdateRequest, 'id'>
 
   @IsString()
   @IsOptional()
-  desc?: string;
+  require: string;
+
+  @IsString()
+  @IsOptional()
+  offer: string;
+
+  @IsString()
+  @IsOptional()
+  days: string;
+
+  @IsString()
+  @IsOptional()
+  time: string;
+
+  @IsString()
+  @IsOptional()
+  salary: string;
 
   @IsString()
   @IsOptional()

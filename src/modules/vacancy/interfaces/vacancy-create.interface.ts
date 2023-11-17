@@ -1,5 +1,9 @@
 export declare interface VacancyCreateRequest {
   title: string;
-  desc?: string;
+  require: string;
+  offer: string;
+  days: string;
+  time: string;
+  salary?: string;
   endsAt?: Date;
 }

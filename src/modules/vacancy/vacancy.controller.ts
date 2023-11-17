@@ -1,4 +1,4 @@
-import type { Vacancies } from '@prisma/client';
+import type { Vacancy } from '@prisma/client';
 import { TokenInterceptor } from '@interceptors';
 import { VacancyService } from './vacancy.service';
 import {
@@ -33,7 +33,7 @@ export class VacancyController {
 
   @Get('/all')
   @HttpCode(HttpStatus.OK)
-  async vacanciesRetrieveAll(): Promise<Vacancies[]> {
+  async vacanciesRetrieveAll(): Promise<Vacancy[]> {
     return this.#_service.vacanciesRetrieveAll();
   }
 
@@ -41,7 +41,7 @@ export class VacancyController {
   @HttpCode(HttpStatus.OK)
   async vacancyRetrieveOne(
     @Param() param: VacancyRetrieveOneRequestDto,
-  ): Promise<Vacancies> {
+  ): Promise<Vacancy> {
     return this.#_service.vacancyRetrieveOne(param);
   }
 

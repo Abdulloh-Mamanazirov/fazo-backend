@@ -23,10 +23,12 @@ export class CompanyService {
     let services_length = await this.#_prisma.service.count();
     let projects_length = await this.#_prisma.project.count();
     let partners_length = await this.#_prisma.partner.count();
+    let vacancy_length = await this.#_prisma.vacancy.count();
     return {
       services: services_length,
       projects: projects_length,
       partners: partners_length,
+      vacancies: vacancy_length,
     };
   }
 

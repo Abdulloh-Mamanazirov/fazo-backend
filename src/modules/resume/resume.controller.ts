@@ -1,15 +1,30 @@
 import {
+  Get,
   Post,
   Body,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
   Controller,
-  UploadedFiles,
+  UploadedFile,
   UseInterceptors,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import path = require('path');
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ResumeService } from './resume.service';
+import {
+  ResumeDeleteRequestDto,
+  ResumeRetrieveOneRequestDto,
+  ResumeSendRequestDto,
+} from './dtos';
+import { Resume } from '@prisma/client';
+import { TokenInterceptor } from '@interceptors';
+
+const allowedExtensions = ['.pdf', '.doc', '.docx'];
 
 const storage = {
   storage: diskStorage({
@@ -20,7 +35,16 @@ const storage = {
 
       const extension: string = path.parse(file.originalname).ext;
 
-      cb(null, `${filename}${extension}`);
+      if (!allowedExtensions.includes(extension)) {
+        cb(
+          new UnprocessableEntityException(
+            'Invalid file extension. Allowed file types are: .pdf, .doc, .docx',
+          ),
+          null,
+        );
+      } else {
+        cb(null, `${filename}${extension}`);
+      }
     },
   }),
 };
@@ -35,14 +59,37 @@ export class ResumeController {
     this.#_service = service;
   }
 
-  @Post('/send')
-  @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'file', maxCount: 1 }], storage),
-  )
-  async sendMessage(@Body() body, @UploadedFiles() files) {
-    console.log(body);
-    console.log(files);
+  @Get('/all')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
+  async resumesRetrieveAll(): Promise<Resume[]> {
+    return this.#_service.resumesRetrieveAll();
+  }
 
-    return;
+  @Get('/:id')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
+  async resumeRetrieveOne(
+    @Param() param: ResumeRetrieveOneRequestDto,
+  ): Promise<Resume> {
+    return this.#_service.resumeRetrieveOne(param);
+  }
+
+  @Post('/send')
+  @HttpCode(HttpStatus.CREATED)
+  @UseInterceptors(FileInterceptor('file', storage))
+  async resumeSend(
+    @Body() body: ResumeSendRequestDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    body.resume = file.filename;
+    return await this.#_service.resumeCreate(body);
+  }
+
+  @Delete('/delete/:id')
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(TokenInterceptor)
+  async projectDelete(@Param() param: ResumeDeleteRequestDto): Promise<null> {
+    return this.#_service.resumeDelete(param);
   }
 }
