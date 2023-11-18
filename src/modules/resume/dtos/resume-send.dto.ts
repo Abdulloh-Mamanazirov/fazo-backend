@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
+  IsJSON,
 } from 'class-validator';
 import type { ResumeSendRequest } from '../interfaces';
 
@@ -25,6 +26,7 @@ export class ResumeSendRequestDto implements ResumeSendRequest {
   resume: string;
 
   @IsUUID()
-  @IsNotEmpty()
+  @IsOptional()
   vacancy_id: string;
 }
+

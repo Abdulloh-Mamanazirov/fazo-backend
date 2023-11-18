@@ -3,5 +3,5 @@ export declare interface ResumeSendRequest {
     phone: string
     about: string
     resume: string
-    vacancy_id: string
+    vacancy_id?: string
 }

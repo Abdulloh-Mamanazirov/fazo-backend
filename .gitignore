@@ -17,10 +17,8 @@ lerna-debug.log*
 # env
 .env
 
-# images
-/uploads/services/*
-/uploads/projects/*
-/uploads/partners/*
+# uploads
+/uploads/*
 
 # Tests
 /coverage

@@ -10,6 +10,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UnprocessableEntityException,
+  BadRequestException,
 } from '@nestjs/common';
 import path = require('path');
 import { diskStorage } from 'multer';
@@ -82,6 +83,7 @@ export class ResumeController {
     @Body() body: ResumeSendRequestDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    if (!file?.filename) {throw new BadRequestException('File is required!')} 
     body.resume = file.filename;
     return await this.#_service.resumeCreate(body);
   }
