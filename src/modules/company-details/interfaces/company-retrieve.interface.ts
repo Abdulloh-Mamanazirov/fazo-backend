@@ -3,4 +3,5 @@ export declare interface LengthRetrieveResponse {
   projects: number;
   partners: number;
   vacancies: number;
+  resumes: number;
 }
