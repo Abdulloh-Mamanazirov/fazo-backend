@@ -1,6 +1,45 @@
-import type { LengthRetrieveResponse } from '../interfaces';
+import type { IProject, IResume, LengthRetrieveResponse } from '../interfaces';
 import { Type } from 'class-transformer';
-import { IsNumber, IsNotEmpty } from 'class-validator';
+import {
+  IsUUID,
+  IsArray,
+  IsNumber,
+  IsObject,
+  IsString,
+  IsNotEmpty,
+} from 'class-validator';
+
+class ProjectStatsDto implements IProject {
+  @IsUUID('4')
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsObject()
+  @IsNotEmpty()
+  _count: {
+    projects: number;
+  };
+}
+
+class ResumeStatsDto implements IResume {
+  @IsUUID('4')
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsObject()
+  @IsNotEmpty()
+  _count: {
+    resumes: number;
+  };
+}
 
 export class LengthRetrieveResponseDto implements LengthRetrieveResponse {
   @IsNumber()
@@ -27,4 +66,12 @@ export class LengthRetrieveResponseDto implements LengthRetrieveResponse {
   @Type(() => Number)
   @IsNotEmpty()
   resumes: number;
+
+  @IsArray()
+  @IsNotEmpty()
+  project_stats: ProjectStatsDto[];
+
+  @IsArray()
+  @IsNotEmpty()
+  resume_stats: ResumeStatsDto[];
 }

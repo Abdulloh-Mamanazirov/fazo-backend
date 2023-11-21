@@ -25,12 +25,39 @@ export class CompanyService {
     let partners_length = await this.#_prisma.partner.count();
     let vacancy_length = await this.#_prisma.vacancy.count();
     let resumes_length = await this.#_prisma.resume.count();
+
+    let projects = await this.#_prisma.service.findMany({
+      select: {
+        id: true,
+        title: true,
+        _count: {
+          select: {
+            projects: true,
+          },
+        },
+      },
+    });
+    
+    let resumes = await this.#_prisma.vacancy.findMany({
+      select: {
+        id: true,
+        title: true,
+        _count: {
+          select: {
+            resumes: true,
+          },
+        },
+      },
+    });
+
     return {
       services: services_length,
       projects: projects_length,
       partners: partners_length,
       vacancies: vacancy_length,
       resumes: resumes_length,
+      project_stats: projects,
+      resume_stats: resumes,
     };
   }
 
