@@ -17,7 +17,7 @@ $ pnpm install
 $ yarn
 ```
 
-### After installation
+#### After installation
 First, create your own `.env` file in the root directory. You should write your own variables in it as in `.env.example`. Then run the following commands to create a database and tables in your PostgreSQL:
 ```bash
 # create the sql migration code in your local folder
